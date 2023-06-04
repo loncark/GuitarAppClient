@@ -31,15 +31,6 @@ public class Guitar {
         this.code = code;
     }
 
-    public Guitar(GuitarCommand gCommand) {
-        this.code = gCommand.getCode();
-        this.name = gCommand.getName();
-        this.price = gCommand.getPrice();
-        this.stock = gCommand.getStock();
-        this.body = gCommand.getBody();
-        this.neck = gCommand.getNeck();
-    }
-
     public Guitar() {}
 
     public Long getId() {
