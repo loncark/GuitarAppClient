@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="329.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+  <tabs>
+    <Tab text="GET">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="290.0" prefWidth="600.0">
+               <children>
+                  <TableView layoutX="35.0" layoutY="75.0" prefHeight="198.0" prefWidth="530.0">
+                    <columns>
+                      <TableColumn prefWidth="91.20001220703125" text="Code" />
+                      <TableColumn fx:id="tableGET" prefWidth="252.0" text="Name" />
+                        <TableColumn minWidth="4.79998779296875" prefWidth="116.0" text="Price" />
+                        <TableColumn prefWidth="70.39996337890625" text="Stock" />
+                    </columns>
+                  </TableView>
+                  <HBox alignment="CENTER" layoutX="34.0" layoutY="22.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="531.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Code:">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="codeFieldGET">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button fx:id="getByCodeButton" mnemonicParsing="false" text="Get by Code">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="getAllButton" mnemonicParsing="false" text="Get All">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="POST/PUT">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <GridPane alignment="CENTER_RIGHT" layoutX="29.0" layoutY="21.0" prefHeight="130.0" prefWidth="252.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.4000244140625" minWidth="10.0" prefWidth="59.60003662109375" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.39996337890625" minWidth="10.0" prefWidth="192.39996337890625" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="50.0" text="Code" />
+                        <TextField fx:id="codeFieldPOST" maxWidth="-Infinity" prefHeight="26.0" prefWidth="182.0" GridPane.columnIndex="1" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="50.0" text="Name" GridPane.rowIndex="1" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="50.0" text="Price" GridPane.rowIndex="2" />
+                        <TextField fx:id="priceFIeldPOST" maxWidth="-Infinity" prefHeight="26.0" prefWidth="182.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="nameFieldPOST" maxWidth="-Infinity" prefHeight="26.0" prefWidth="182.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+                  <GridPane alignment="CENTER_RIGHT" layoutX="300.0" layoutY="21.0" prefHeight="131.0" prefWidth="251.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="119.5999755859375" minWidth="10.0" prefWidth="59.5999755859375" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.20001220703125" minWidth="10.0" prefWidth="192.4000244140625" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="50.0" text="Body" GridPane.rowIndex="1" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="50.0" text="Stock" GridPane.rowIndex="2" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="50.0" text="Neck" />
+                        <ComboBox fx:id="neckComboPOST" prefHeight="26.0" prefWidth="182.0" GridPane.columnIndex="1" />
+                        <ComboBox fx:id="bodyComboPOST" prefHeight="26.0" prefWidth="182.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="stockCOmboPOST" prefHeight="26.0" prefWidth="182.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <Label fx:id="messagePOST" alignment="CENTER" contentDisplay="CENTER" layoutX="208.0" layoutY="208.0" prefHeight="18.0" prefWidth="148.0" text="(201) Created sucessfully." />
+                  <HBox alignment="CENTER" layoutX="144.0" layoutY="162.0" prefHeight="36.0" prefWidth="310.0">
+                     <children>
+                        <Label text="Id">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ComboBox fx:id="idComboPOST" prefHeight="26.0" prefWidth="182.0">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                        </ComboBox>
+                        <Button fx:id="submitButtonPOST" mnemonicParsing="false" text="Submit">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+      <Tab text="DELETE">
+        <content>
+          <AnchorPane fx:id="codeComboDELETE" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER" layoutX="131.0" layoutY="24.0" prefHeight="38.0" prefWidth="338.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="46.0" text="Code">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ComboBox prefWidth="150.0" />
+                        <Button fx:id="buttonDELETE" mnemonicParsing="false" text="Delete">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Label fx:id="messageDELETE" alignment="CENTER" contentDisplay="CENTER" layoutX="219.0" layoutY="75.0" prefHeight="18.0" prefWidth="162.0" text="(204) Deleted successfully." />
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+  </tabs>
+</TabPane>
