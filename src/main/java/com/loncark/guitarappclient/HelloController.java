@@ -7,16 +7,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
-
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+
+import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ResourceBundle;
 
 import static com.loncark.guitarappclient.module.Material.*;
 
@@ -59,32 +57,33 @@ public class HelloController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<Guitar> guitars = retrieveAllGuitars();
+        List<Guitar> guitars = getAllGuitars();
         setInitialValues(guitars);
     }
 
-    private List<Guitar> retrieveAllGuitars() {
+    private List<Guitar> getAllGuitars() {
         RestTemplate restTemplate = new RestTemplate();
 
         String restEndpointUrl = "http://localhost:7000/";
         ResponseEntity<Guitar[]> guitarArrayResponse =
                 restTemplate.getForEntity(restEndpointUrl, Guitar[].class);
 
-        for(Guitar guitar : guitarArrayResponse.getBody()) {
+        Guitar[] guitarArray = guitarArrayResponse.getBody();
+
+        for (Guitar guitar : guitarArray) {
             System.out.println("Guitar name: " + guitar.getName());
             System.out.println("Guitar price: " + guitar.getPrice());
         }
 
-        Guitar[] guitarArray = guitarArrayResponse.getBody();
         return Arrays.asList(guitarArray);
     }
 
     private void setInitialValues(List<Guitar> guitars) {
 
-        codeColumn.setCellValueFactory(new PropertyValueFactory<Guitar, String>("Code"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<Guitar, String>("Name"));
-        priceColumn.setCellValueFactory(new PropertyValueFactory<Guitar, String>("Price"));
-        stockColumn.setCellValueFactory(new PropertyValueFactory<Guitar, String>("Stock"));
+        codeColumn.setCellValueFactory(new PropertyValueFactory<>("Code"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("Price"));
+        stockColumn.setCellValueFactory(new PropertyValueFactory<>("Stock"));
 
         // setting the values of the combo box in POST
         ObservableList<Long> guitarIds = FXCollections.observableArrayList();
@@ -116,13 +115,36 @@ public class HelloController implements Initializable {
 
     @FXML
     protected void onGetAllButtonClick() {
-        List<Guitar> guitars = retrieveAllGuitars();
+        List<Guitar> guitars = getAllGuitars();
         ObservableList<Guitar> guitarList = FXCollections.observableArrayList();
         guitarList.addAll(guitars);
 
         tableGET.setItems(guitarList);
     }
 
+    @FXML
+    protected void onGetByCodeButtonClick() {
+        Guitar guitar = getAGuitarByCode(codeFieldGET.getText());
 
+        ObservableList<Guitar> guitarList = FXCollections.observableArrayList();
+        guitarList.add(guitar);
+
+        tableGET.setItems(guitarList);
+    }
+
+    private Guitar getAGuitarByCode(String guitarCode) {
+        RestTemplate restTemplate = new RestTemplate();
+
+        String restEndpointUrl = "http://localhost:7000/" + guitarCode;
+        ResponseEntity<Guitar> guitarResponse =
+                restTemplate.getForEntity(restEndpointUrl, Guitar.class);
+
+        Guitar guitar = guitarResponse.getBody();
+
+        System.out.println("Guitar name: " + guitar.getName());
+        System.out.println("Guitar price: " + guitar.getPrice());
+
+        return guitar;
+    }
 }
 

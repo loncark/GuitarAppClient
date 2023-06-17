@@ -41,7 +41,7 @@
                               <Insets left="15.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button fx:id="getByCodeButton" mnemonicParsing="false" text="Get by Code">
+                        <Button fx:id="getByCodeButton" mnemonicParsing="false" onAction="#onGetByCodeButtonClick" text="Get by Code">
                            <HBox.margin>
                               <Insets left="15.0" />
                            </HBox.margin>
