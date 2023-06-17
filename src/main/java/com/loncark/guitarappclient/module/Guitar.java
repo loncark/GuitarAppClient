@@ -4,14 +4,16 @@ import java.math.BigDecimal;
 
 public class Guitar {
 
-    Long id;
-    String code;
+    private Long id;
+    private String code;
 
-    Material body;
-    Material neck;
-    String name;
-    BigDecimal price;
-    Long stock;
+    private Material body;
+    private Material neck;
+    private String name;
+    private BigDecimal price;
+    private Long stock;
+
+    public Guitar() {}
 
     @Override
     public String toString() {
@@ -31,7 +33,7 @@ public class Guitar {
         this.code = code;
     }
 
-    public Guitar() {}
+
 
     public Long getId() {
         return id;

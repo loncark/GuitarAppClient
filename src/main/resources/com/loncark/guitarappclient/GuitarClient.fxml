@@ -15,16 +15,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="329.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="329.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.loncark.guitarappclient.HelloController">
   <tabs>
     <Tab text="GET">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="290.0" prefWidth="600.0">
                <children>
-                  <TableView layoutX="35.0" layoutY="75.0" prefHeight="198.0" prefWidth="530.0">
+                  <TableView fx:id="tableGET" layoutX="35.0" layoutY="75.0" prefHeight="198.0" prefWidth="530.0">
                     <columns>
                       <TableColumn prefWidth="91.20001220703125" text="Code" />
-                      <TableColumn fx:id="tableGET" prefWidth="252.0" text="Name" />
+                      <TableColumn prefWidth="252.0" text="Name" />
                         <TableColumn minWidth="4.79998779296875" prefWidth="116.0" text="Price" />
                         <TableColumn prefWidth="70.39996337890625" text="Stock" />
                     </columns>
@@ -95,7 +95,7 @@
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="50.0" text="Neck" />
                         <ComboBox fx:id="neckComboPOST" prefHeight="26.0" prefWidth="182.0" GridPane.columnIndex="1" />
                         <ComboBox fx:id="bodyComboPOST" prefHeight="26.0" prefWidth="182.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="stockCOmboPOST" prefHeight="26.0" prefWidth="182.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="stockComboPOST" prefHeight="26.0" prefWidth="182.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                   <Label fx:id="messagePOST" alignment="CENTER" contentDisplay="CENTER" layoutX="208.0" layoutY="208.0" prefHeight="18.0" prefWidth="148.0" text="(201) Created sucessfully." />
@@ -123,7 +123,7 @@
     </Tab>
       <Tab text="DELETE">
         <content>
-          <AnchorPane fx:id="codeComboDELETE" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <HBox alignment="CENTER" layoutX="131.0" layoutY="24.0" prefHeight="38.0" prefWidth="338.0">
                      <children>
@@ -132,7 +132,7 @@
                               <Insets left="15.0" />
                            </HBox.margin>
                         </Label>
-                        <ComboBox prefWidth="150.0" />
+                        <ComboBox fx:id="codeComboDELETE" prefWidth="150.0" />
                         <Button fx:id="buttonDELETE" mnemonicParsing="false" text="Delete">
                            <HBox.margin>
                               <Insets left="15.0" />
