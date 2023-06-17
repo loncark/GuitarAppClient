@@ -23,10 +23,10 @@
                <children>
                   <TableView fx:id="tableGET" layoutX="35.0" layoutY="75.0" prefHeight="198.0" prefWidth="530.0">
                     <columns>
-                      <TableColumn prefWidth="91.20001220703125" text="Code" />
-                      <TableColumn prefWidth="252.0" text="Name" />
-                        <TableColumn minWidth="4.79998779296875" prefWidth="116.0" text="Price" />
-                        <TableColumn prefWidth="70.39996337890625" text="Stock" />
+                      <TableColumn fx:id="codeColumn" prefWidth="75.20001220703125" text="Code" />
+                        <TableColumn fx:id="nameColumn" minWidth="4.79998779296875" prefWidth="304.79998779296875" text="Name" />
+                        <TableColumn fx:id="priceColumn" prefWidth="85.60003662109375" text="Price" />
+                        <TableColumn fx:id="stockColumn" prefWidth="63.2000732421875" text="Stock" />
                     </columns>
                   </TableView>
                   <HBox alignment="CENTER" layoutX="34.0" layoutY="22.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="531.0">
@@ -46,7 +46,7 @@
                               <Insets left="15.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="getAllButton" mnemonicParsing="false" text="Get All">
+                        <Button fx:id="getAllButton" mnemonicParsing="false" onAction="#onGetAllButtonClick" text="Get All">
                            <HBox.margin>
                               <Insets left="15.0" />
                            </HBox.margin>

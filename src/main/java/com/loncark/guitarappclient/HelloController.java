@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.scene.control.cell.PropertyValueFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,51 +22,48 @@ import static com.loncark.guitarappclient.module.Material.*;
 
 public class HelloController implements Initializable {
     @FXML
-    TextField codeFieldGET;
+    private TextField codeFieldGET;
     @FXML
-    Button getByCodeButton;
+    private TableView<Guitar> tableGET;
     @FXML
-    Button getAllButton;
+    private TableColumn<Guitar, String> codeColumn;
     @FXML
-    TableView<Guitar> tableGET;
+    private TableColumn<Guitar, String> nameColumn;
+    @FXML
+    private TableColumn<Guitar, String> priceColumn;
+    @FXML
+    private TableColumn<Guitar, String> stockColumn;
+
 
     @FXML
-    TextField codeFieldPOST;
+    private TextField codeFieldPOST;
     @FXML
-    TextField nameFieldPOST;
+    private TextField nameFieldPOST;
     @FXML
-    TextField priceFieldPOST;
+    private TextField priceFieldPOST;
     @FXML
-    ComboBox<Material> neckComboPOST;
+    private ComboBox<Material> neckComboPOST;
     @FXML
-    ComboBox<Material> bodyComboPOST;
+    private ComboBox<Material> bodyComboPOST;
     @FXML
-    ComboBox<Long> stockComboPOST;
+    private ComboBox<Long> stockComboPOST;
     @FXML
-    ComboBox<Long> idComboPOST;
+    private ComboBox<Long> idComboPOST;
     @FXML
-    Button submitButtonPOST;
-    @FXML
-    Label messagePOST;
+    private Label messagePOST;
 
     @FXML
-    ComboBox<String> codeComboDELETE;
+    private ComboBox<String> codeComboDELETE;
     @FXML
-    Label messageDELETE;
-    @FXML
-    Button deleteButton;
+    private Label messageDELETE;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // setting the values of the combo box in POST
-        ObservableList<Material> neckMaterials = FXCollections.observableArrayList(Rosewood, Maple);
-        neckComboPOST.setItems(neckMaterials);
-        ObservableList<Material> bodyMaterials = FXCollections.observableArrayList(Alder, Ebony, Mahogany);
-        bodyComboPOST.setItems(bodyMaterials);
-        ObservableList<Long> stock = FXCollections.observableArrayList(1L, 2L, 3L, 4L, 5L, 6L);
-        stockComboPOST.setItems(stock);
+        List<Guitar> guitars = retrieveAllGuitars();
+        setInitialValues(guitars);
+    }
 
-        // retrieving the list of guitars
+    private List<Guitar> retrieveAllGuitars() {
         RestTemplate restTemplate = new RestTemplate();
 
         String restEndpointUrl = "http://localhost:7000/";
@@ -77,10 +75,16 @@ public class HelloController implements Initializable {
             System.out.println("Guitar price: " + guitar.getPrice());
         }
 
-        ObservableList<Guitar> guitarList = FXCollections.observableArrayList();
         Guitar[] guitarArray = guitarArrayResponse.getBody();
-        List<Guitar> guitars = Arrays.asList(guitarArray);
-        guitarList.addAll(guitars);
+        return Arrays.asList(guitarArray);
+    }
+
+    private void setInitialValues(List<Guitar> guitars) {
+
+        codeColumn.setCellValueFactory(new PropertyValueFactory<Guitar, String>("Code"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<Guitar, String>("Name"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<Guitar, String>("Price"));
+        stockColumn.setCellValueFactory(new PropertyValueFactory<Guitar, String>("Stock"));
 
         // setting the values of the combo box in POST
         ObservableList<Long> guitarIds = FXCollections.observableArrayList();
@@ -98,15 +102,27 @@ public class HelloController implements Initializable {
         }
         codeComboDELETE.setItems(guitarCodes);
 
-        tableGET.setItems(guitarList);
+        // setting the values of the combo box in POST
+        ObservableList<Material> neckMaterials = FXCollections.observableArrayList(Rosewood, Maple);
+        neckComboPOST.setItems(neckMaterials);
+        ObservableList<Material> bodyMaterials = FXCollections.observableArrayList(Alder, Ebony, Mahogany);
+        bodyComboPOST.setItems(bodyMaterials);
+        ObservableList<Long> stock = FXCollections.observableArrayList(1L, 2L, 3L, 4L, 5L, 6L);
+        stockComboPOST.setItems(stock);
+
         messagePOST.setText("");
         messageDELETE.setText("");
     }
 
     @FXML
-    protected void onHelloButtonClick() {
+    protected void onGetAllButtonClick() {
+        List<Guitar> guitars = retrieveAllGuitars();
+        ObservableList<Guitar> guitarList = FXCollections.observableArrayList();
+        guitarList.addAll(guitars);
 
+        tableGET.setItems(guitarList);
     }
 
 
 }
+
