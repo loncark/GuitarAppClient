@@ -8,9 +8,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
+import com.google.gson.Gson;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -84,6 +86,8 @@ public class HelloController implements Initializable {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("Price"));
         stockColumn.setCellValueFactory(new PropertyValueFactory<>("Stock"));
+        messagePOST.setText("");
+        messageDELETE.setText("");
 
         // setting the values of the combo box in POST
         ObservableList<Long> guitarIds = FXCollections.observableArrayList();
@@ -109,8 +113,6 @@ public class HelloController implements Initializable {
         ObservableList<Long> stock = FXCollections.observableArrayList(1L, 2L, 3L, 4L, 5L, 6L);
         stockComboPOST.setItems(stock);
 
-        messagePOST.setText("");
-        messageDELETE.setText("");
     }
 
     @FXML
@@ -145,6 +147,40 @@ public class HelloController implements Initializable {
         System.out.println("Guitar price: " + guitar.getPrice());
 
         return guitar;
+    }
+
+    @FXML
+    protected void onSubmitButtonClick() {
+
+        RestTemplate restTemplate = new RestTemplate();
+        String restEndpointUrl = "http://localhost:7000/";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        Guitar newGuitar = new Guitar();
+        newGuitar.setCode(codeFieldPOST.getText());
+        newGuitar.setName(nameFieldPOST.getText());
+        newGuitar.setPrice(new BigDecimal(priceFieldPOST.getText().trim()));
+        newGuitar.setStock(stockComboPOST.getValue());
+        newGuitar.setBody(neckComboPOST.getValue());
+        newGuitar.setNeck(neckComboPOST.getValue());
+
+        String requestJson = new Gson().toJson(newGuitar);
+        System.out.println(requestJson);
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(requestJson, headers);
+        ResponseEntity<String> response =
+                restTemplate.postForEntity(restEndpointUrl, requestEntity, String.class);
+
+        System.out.println("POST RESPONSE: " + response.getStatusCode());
+        if(response.getStatusCode() == HttpStatus.CREATED) {
+            messagePOST.setText("(201) Successfully created.");
+        } else if (response.getStatusCode() == HttpStatus.CONFLICT){
+            messagePOST.setText("(409) A guitar with the same code already exists.");
+        } else {
+            messagePOST.setText("Server error.");
+        }
+
     }
 }
 

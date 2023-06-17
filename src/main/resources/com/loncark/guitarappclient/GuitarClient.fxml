@@ -75,7 +75,7 @@
                         <TextField fx:id="codeFieldPOST" maxWidth="-Infinity" prefHeight="26.0" prefWidth="182.0" GridPane.columnIndex="1" />
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="50.0" text="Name" GridPane.rowIndex="1" />
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="50.0" text="Price" GridPane.rowIndex="2" />
-                        <TextField fx:id="priceFIeldPOST" maxWidth="-Infinity" prefHeight="26.0" prefWidth="182.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="priceFieldPOST" maxWidth="-Infinity" prefHeight="26.0" prefWidth="182.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="nameFieldPOST" maxWidth="-Infinity" prefHeight="26.0" prefWidth="182.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
@@ -111,7 +111,7 @@
                               <Insets left="15.0" />
                            </HBox.margin>
                         </ComboBox>
-                        <Button fx:id="submitButtonPOST" mnemonicParsing="false" text="Submit">
+                        <Button fx:id="submitButtonPOST" mnemonicParsing="false" onAction="#onSubmitButtonClick" text="Submit">
                            <HBox.margin>
                               <Insets left="15.0" />
                            </HBox.margin>

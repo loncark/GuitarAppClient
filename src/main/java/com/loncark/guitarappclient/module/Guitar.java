@@ -34,6 +34,29 @@ public class Guitar {
     }
 
 
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setBody(Material body) {
+        this.body = body;
+    }
+
+    public void setNeck(Material neck) {
+        this.neck = neck;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public void setStock(Long stock) {
+        this.stock = stock;
+    }
 
     public Long getId() {
         return id;
