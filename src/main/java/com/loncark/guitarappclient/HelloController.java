@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static com.loncark.guitarappclient.module.Material.*;
@@ -47,8 +48,6 @@ public class HelloController implements Initializable {
     private ComboBox<Material> bodyComboPOST;
     @FXML
     private ComboBox<Long> stockComboPOST;
-    @FXML
-    private ComboBox<Long> idComboPOST;
     @FXML
     private Label messagePOST;
 
@@ -88,14 +87,6 @@ public class HelloController implements Initializable {
         stockColumn.setCellValueFactory(new PropertyValueFactory<>("Stock"));
         messagePOST.setText("");
         messageDELETE.setText("");
-
-        // setting the values of the combo box in POST
-        ObservableList<Long> guitarIds = FXCollections.observableArrayList();
-        for (Guitar guitar : guitars) {
-            long id = guitar.getId();
-            guitarIds.add(id);
-        }
-        idComboPOST.setItems(guitarIds);
 
         // setting the values of the combo box in DELETE
         ObservableList<String> guitarCodes = FXCollections.observableArrayList();
@@ -151,6 +142,18 @@ public class HelloController implements Initializable {
 
     @FXML
     protected void onSubmitButtonClick() {
+        List<Guitar> guitars = getAllGuitars();
+
+        for (Guitar guitar : guitars) {
+            if(Objects.equals(guitar.getCode(), codeFieldPOST.getText())) {
+                makeAPUTRequest(guitar.getId());
+                return;
+            }
+        }
+        makeAPOSTRequest();
+    }
+
+    protected void makeAPOSTRequest() {
 
         RestTemplate restTemplate = new RestTemplate();
         String restEndpointUrl = "http://localhost:7000/";
@@ -181,6 +184,32 @@ public class HelloController implements Initializable {
             messagePOST.setText("Server error.");
         }
 
+    }
+
+    protected void makeAPUTRequest(Long id) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        String restEndpointUrl = "http://localhost:7000/";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        Guitar newGuitar = new Guitar();
+        newGuitar.setId(id);
+        newGuitar.setCode(codeFieldPOST.getText());
+        newGuitar.setName(nameFieldPOST.getText());
+        newGuitar.setPrice(new BigDecimal(priceFieldPOST.getText().trim()));
+        newGuitar.setStock(stockComboPOST.getValue());
+        newGuitar.setBody(neckComboPOST.getValue());
+        newGuitar.setNeck(neckComboPOST.getValue());
+
+        String requestJson = new Gson().toJson(newGuitar);
+        System.out.println(requestJson);
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(requestJson, headers);
+        restTemplate.put(restEndpointUrl, requestEntity);
+        System.out.println("Updated hardware with id: " + newGuitar.getId());
+
+        messagePOST.setText("Item updated.");
     }
 }
 

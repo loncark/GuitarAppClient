@@ -33,6 +33,9 @@ public class Guitar {
         this.code = code;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public void setCode(String code) {
         this.code = code;
