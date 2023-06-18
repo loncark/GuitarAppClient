@@ -58,6 +58,11 @@ public class HelloController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        refresh();
+    }
+
+    @FXML
+    protected void refresh() {
         List<Guitar> guitars = getAllGuitars();
         setInitialValues(guitars);
     }
@@ -210,6 +215,19 @@ public class HelloController implements Initializable {
         System.out.println("Updated hardware with id: " + newGuitar.getId());
 
         messagePOST.setText("Item updated.");
+    }
+
+    @FXML
+    protected void onDeleteButtonClick() {
+
+        RestTemplate restTemplate = new RestTemplate();
+        String restEndpointUrl = "http://localhost:7000/" + codeComboDELETE.getValue();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        restTemplate.delete(restEndpointUrl);
+        refresh();
+        messageDELETE.setText("(204) Deleted successfully.");
     }
 }
 

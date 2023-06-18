@@ -98,7 +98,7 @@
                         <ComboBox fx:id="stockComboPOST" prefHeight="26.0" prefWidth="182.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
-                  <Label fx:id="messagePOST" alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="208.0" prefHeight="18.0" prefWidth="411.0" text="(201) Created sucessfully." />
+                  <Label fx:id="messagePOST" alignment="CENTER" contentDisplay="CENTER" layoutX="107.0" layoutY="208.0" prefHeight="18.0" prefWidth="386.0" text="(201) Created sucessfully." />
                   <HBox alignment="CENTER" layoutX="144.0" layoutY="162.0" prefHeight="36.0" prefWidth="310.0">
                      <children>
                         <Button fx:id="submitButtonPOST" mnemonicParsing="false" onAction="#onSubmitButtonClick" text="Submit">
@@ -123,7 +123,7 @@
                            </HBox.margin>
                         </Label>
                         <ComboBox fx:id="codeComboDELETE" prefWidth="150.0" />
-                        <Button fx:id="buttonDELETE" mnemonicParsing="false" text="Delete">
+                        <Button fx:id="buttonDELETE" mnemonicParsing="false" onAction="#onDeleteButtonClick" text="Delete">
                            <HBox.margin>
                               <Insets left="15.0" />
                            </HBox.margin>
