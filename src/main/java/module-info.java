@@ -3,9 +3,6 @@ module com.loncark.guitarappclient {
     requires javafx.fxml;
     requires spring.web;
     requires com.google.gson;
-    requires testFx;
-    requires junit;
-
 
     opens com.loncark.guitarappclient to javafx.fxml;
     exports com.loncark.guitarappclient;

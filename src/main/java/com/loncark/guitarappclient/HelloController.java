@@ -1,5 +1,6 @@
 package com.loncark.guitarappclient;
 
+import com.loncark.guitarappclient.module.Alerts;
 import com.loncark.guitarappclient.module.Guitar;
 import com.loncark.guitarappclient.module.Material;
 import javafx.collections.FXCollections;
@@ -59,6 +60,8 @@ public class HelloController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         refresh();
+        messagePOST.setText("");
+        messageDELETE.setText("");
     }
 
     @FXML
@@ -90,8 +93,6 @@ public class HelloController implements Initializable {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("Price"));
         stockColumn.setCellValueFactory(new PropertyValueFactory<>("Stock"));
-        messagePOST.setText("");
-        messageDELETE.setText("");
 
         // setting the values of the combo box in DELETE
         ObservableList<String> guitarCodes = FXCollections.observableArrayList();
@@ -122,6 +123,10 @@ public class HelloController implements Initializable {
 
     @FXML
     protected void onGetByCodeButtonClick() {
+        if(!Alerts.isCodeOk(codeFieldGET.getText())) {
+            return;
+        }
+
         Guitar guitar = getAGuitarByCode(codeFieldGET.getText());
 
         ObservableList<Guitar> guitarList = FXCollections.observableArrayList();
@@ -147,15 +152,26 @@ public class HelloController implements Initializable {
 
     @FXML
     protected void onSubmitButtonClick() {
+
+        if(Alerts.oneIsNull(neckComboPOST.getValue(), bodyComboPOST.getValue(), stockComboPOST.getValue())) {
+            return;
+        }
+        if(!Alerts.isAllOk(nameFieldPOST.getText(), priceFieldPOST.getText(), String.valueOf(stockComboPOST.getValue()),
+                neckComboPOST.getValue().toString(), bodyComboPOST.getValue().toString(), codeFieldPOST.getText())) {
+            return;
+        }
+
         List<Guitar> guitars = getAllGuitars();
 
         for (Guitar guitar : guitars) {
             if(Objects.equals(guitar.getCode(), codeFieldPOST.getText())) {
                 makeAPUTRequest(guitar.getId());
+                refresh();
                 return;
             }
         }
         makeAPOSTRequest();
+        refresh();
     }
 
     protected void makeAPOSTRequest() {
@@ -219,6 +235,11 @@ public class HelloController implements Initializable {
 
     @FXML
     protected void onDeleteButtonClick() {
+
+        if(codeComboDELETE.getValue() == null) {
+            messageDELETE.setText("Pick a value!");
+            return;
+        }
 
         RestTemplate restTemplate = new RestTemplate();
         String restEndpointUrl = "http://localhost:7000/" + codeComboDELETE.getValue();
